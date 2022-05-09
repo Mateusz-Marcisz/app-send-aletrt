@@ -16,21 +16,21 @@ socket.on('smsStatus', function(data){
 });
 
 let timeOut;
-const getTimeSchedule = ({ time, number, text }) => {
+const getTimeSchedule = ({ time, number, a }) => {
   if(timeOut) clearTimeout(timeOut);
   timeOut = setTimeout(() => {
-    fetchServer({ number, text });
+    fetchServer({ number, a });
   }, time * 60 * 1000);
 };
 
-const fetchServer = ({ number, text }) => {
+const fetchServer = ({ number, a }) => {
   console.log('send');
   fetch('/', {
     method: 'post',
     headers: {
       'Content-type': 'application/json'
     },
-    body: JSON.stringify({ number, text })
+    body: JSON.stringify({ number, a })
   })
     .then(function (res) {
       console.log(res);
@@ -42,8 +42,8 @@ const fetchServer = ({ number, text }) => {
 
 function send() {
   const number = numberInput.value.replace(/\D/g, '');
-  const text = textInput.value;
+  const a = textInput.value;
   const time = parseInt(scheduleSelect.value, 10);
-  getTimeSchedule({ number, text, time });
+  getTimeSchedule({ number, a, time });
 }
 
